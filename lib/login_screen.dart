@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,63 +18,48 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            Colors.red,
-            Colors.brown,
-            Colors.yellow,
-            Colors.green,
-            Colors.blue,
-          ],
-        )),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Center(
-                child: SafeArea(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                  const Text(
-                    "Welcome To Harold AR ",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: TextField(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text(
+            "Welcome To Harold AR ",
+            style: TextStyle(
+              fontSize: 30,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: TextFormField(
                       controller: _emailController,
-                      decoration: const InputDecoration(hintText: 'Email'),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
                       decoration: const InputDecoration(
-                        hintText: 'Password',
+                        border: OutlineInputBorder(),
+                        hintText: 'Email',
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30.0,
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'password',
+                      ),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -85,22 +71,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text(
-                    "Don't have an account?",
+                  Row(
+                    children: [
+                      const Text(
+                        "Don't have an account?",
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CreateUser(),
+                            ),
+                          );
+                        },
+                        child: const Text('Create Account'),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const CreateUser(),
-                        ),
-                      );
-                    },
-                    child: const Text('Create Account'),
-                  ),
-                ])))));
+                ],
+              ),
+            ),
+          ),
+        ]),
+      ),
+    );
   }
 }
